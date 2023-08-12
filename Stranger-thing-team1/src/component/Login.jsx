@@ -3,6 +3,22 @@ import { loginUser } from '../API/index';
 import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
 
+// This function creates headers for API requests with or without the bearer token
+const makeHeaders = (includeToken = true) => {
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (includeToken) {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+  }
+
+  return headers;
+};
+
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +50,7 @@ function Login() {
     };
 
     try {
-      const result = await loginUser(loginData);
+      const result = await loginUser(loginData, makeHeaders);
       if (result.data) {
         handleLoginSuccess(result.token);
         window.alert("Login successful!");
@@ -44,10 +60,7 @@ function Login() {
     }
   };
 
-  const handleRegisterClick = () => {
-    setShowRegistrationForm(true);
-    setRegistrationSuccess(false); // Reset registration success state
-  };
+  
 
   const handleRegistrationSuccess = () => {
     setRegistrationSuccess(true); // Set registration success state
