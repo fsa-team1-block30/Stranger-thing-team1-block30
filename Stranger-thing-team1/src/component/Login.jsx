@@ -8,6 +8,8 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -19,16 +21,13 @@ function Login() {
   };
 
   const handleLoginSuccess = (token) => {
-    // Store the token in sessionStorage
     sessionStorage.setItem('token', token);
-    // Redirect the user to a profile page
-    navigate('/Profile'); 
+    setIsLoggedIn(true);
+    navigate('/Profile');
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Send login data to the backend
     const loginData = {
       username,
       password,
@@ -36,9 +35,9 @@ function Login() {
 
     try {
       const result = await loginUser(loginData);
-      // Handle success
       if (result.data) {
         handleLoginSuccess(result.token);
+        window.alert("Login successful!");
       }
     } catch (err) {
       setError("Invalid credentials. Please try again.");
@@ -47,37 +46,67 @@ function Login() {
 
   const handleRegisterClick = () => {
     setShowRegistrationForm(true);
+    setRegistrationSuccess(false); // Reset registration success state
+  };
+
+  const handleRegistrationSuccess = () => {
+    setRegistrationSuccess(true); // Set registration success state
+    setShowRegistrationForm(false); // Hide registration form after successful registration
+    
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    setIsLoggedIn(false);
   };
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
-      {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label htmlFor="login-username">Username:</label>
-          <input
-            type="text"
-            id="login-username"
-            value={username}
-            onChange={handleUsernameChange}
-            required
-          />
+      <h2>{isLoggedIn ? 'Logged In' : 'Login'}</h2>
+      {isLoggedIn ? (
+        <div>
+          <p>You are logged in!</p>
+          <button onClick={handleLogout}>Logout</button>
         </div>
-        <div className="input-container">
-          <label htmlFor="login-password">Password:</label>
-          <input
-            type="password"
-            id="login-password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-          />
+      ) : (
+        <div>
+          {registrationSuccess ? (
+            <div>
+              <p>Registration successful! Please log in.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <div className="input-container">
+                <label htmlFor="login-username">Username:</label>
+                <input
+                  type="text"
+                  id="login-username"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  required
+                />
+              </div>
+              <div className="input-container">
+                <label htmlFor="login-password">Password:</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  required
+                />
+              </div>
+              <button type="submit" className="login-button">Login</button>
+            </form>
+          )}
+          {!isLoggedIn && !registrationSuccess && (
+            <p className="register-link">Don't have an account? <Link to="/register">Register</Link></p>
+          )}
         </div>
-        <button type="submit" className="login-button">Login</button>
-      </form>
-      {showRegistrationForm && <Register />}
-      <p className="register-link">Don't have an account? <Link to="/register">Register</Link></p>
+      )}
+      {showRegistrationForm && (
+        <Register onSuccess={handleRegistrationSuccess} />
+      )}
     </div>
   );
 }

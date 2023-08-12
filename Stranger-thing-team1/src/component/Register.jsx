@@ -1,8 +1,9 @@
 import  { useState } from 'react';
 import { registerUser } from '../API/index';
+import { Link } from 'react-router-dom';
 
 
-function Register() {
+function Register(onSuccess) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -43,8 +44,9 @@ function Register() {
     try {
       const result = await registerUser(registrationData);
       // Handle success (you'll likely get a token in the result)
-       if (result){
-        window.alert('Registration successful!');
+       if (result.success){
+        onSuccess();
+        window.alert("Registration successful! You can now log in.");
        }
     } catch (err) {
       setError("An error occurred during registration.");
@@ -86,8 +88,11 @@ function Register() {
             required
           />
         </div>
-        <button type="submit" className="signup-button">Sign Up</button>
+        <button type="submit" className="signup-button" > <Link to="/Login">Sign Up </Link></button>
       </form>
+
+        {/* Add Link to the login page after the form */}
+      <p className="login-link">Already have an account? <Link to="/Login">Login</Link></p>
     </div>
   );
 }
