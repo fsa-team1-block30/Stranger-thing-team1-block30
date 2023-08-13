@@ -1,5 +1,6 @@
 import  { useState, useEffect } from 'react';
 import { getAllPosts } from '../API/index'; // Update the path to match your directory structure
+import NewListingForm from './NewListingForm'
 
 function Profile() {
   const [posts, setPosts] = useState([]);
@@ -48,7 +49,10 @@ function Profile() {
           
         ))}
       </ul>
+      <NewListingForm />
     </div>
+
+    
   );
 }
 

@@ -5,6 +5,7 @@ import Login from "./component/Login"
 import NavBar from "./component/NavBar"
 import Profile from "./component/Profile"
 import Register from "./component/Register"
+import NewListingForm from "./component/NewListingForm"
 
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
 <Route path="/Profile" element={ <Profile />} />
 <Route path="/Login" element={  <Login />} />
  <Route path="/Register" element={<Register />} />
+ <Route path="/NewListing" element={<NewListingForm/>}/>
 
 </Routes>
       </div>

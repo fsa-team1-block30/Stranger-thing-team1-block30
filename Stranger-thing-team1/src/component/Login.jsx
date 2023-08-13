@@ -1,23 +1,12 @@
 import { useState } from 'react';
-import { loginUser } from '../API/index';
+import { loginUser, makeHeaders } from '../API/index';
 import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
+import NewListingForm from './NewListingForm';
+
+
 
 // This function creates headers for API requests with or without the bearer token
-const makeHeaders = (includeToken = true) => {
-  const headers = {
-    'Content-Type': 'application/json',
-  };
-
-  if (includeToken) {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-  }
-
-  return headers;
-};
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -42,23 +31,46 @@ function Login() {
     navigate('/Profile');
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const loginData = {
-      username,
-      password,
-    };
 
-    try {
-      const result = await loginUser(loginData, makeHeaders);
-      if (result.data) {
-        handleLoginSuccess(result.token);
-        window.alert("Login successful!");
-      }
-    } catch (err) {
+  const handleSubmit = async (event) => {
+  event.preventDefault();
+  const loginData = {
+    username,
+    password,
+  };
+
+  try {
+    const result = await loginUser(loginData);
+    if (result.success) {
+      console.log('Received token:', result.data.token);
+      handleLoginSuccess(result.data.token);
+      window.alert("Login successful!");
+    } else {
       setError("Invalid credentials. Please try again.");
     }
-  };
+  } catch (err) {
+    setError("An error occurred. Please try again later.");
+  }
+};
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const loginData = {
+  //     username,
+  //     password,
+  //   };
+
+  //   try {
+  //     const result = await loginUser(loginData, makeHeaders);
+  //     if (result.data) {
+  //       console.log('Received token:', result.token);
+  //       handleLoginSuccess(result.token);
+  //       window.alert("Login successful!");
+  //     }
+  //   } catch (err) {
+  //     setError("Invalid credentials. Please try again.");
+  //   }
+  // };
 
   
 
@@ -80,6 +92,8 @@ function Login() {
         <div>
           <p>You are logged in!</p>
           <button onClick={handleLogout}>Logout</button>
+          
+          
         </div>
       ) : (
         <div>
@@ -120,6 +134,8 @@ function Login() {
       {showRegistrationForm && (
         <Register onSuccess={handleRegistrationSuccess} />
       )}
+
+      {isLoggedIn && <NewListingForm token={sessionStorage.getItem('token')} />}
     </div>
   );
 }

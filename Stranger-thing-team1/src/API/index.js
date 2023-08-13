@@ -1,6 +1,23 @@
 const COHORT_NAME = '2302-acc-pt-web-pt-d';
 const BASE_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
+
+export const makeHeaders = (includeToken = true) => {
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  if (includeToken) {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+  }
+
+  return headers;
+};
+
+
 // Function to make a GET request to fetch all posts
 export const getAllPosts = async () => {
   try {
@@ -61,28 +78,47 @@ export const loginUser = async (loginData) => {
     }
   }
 
-  const makePost = async () => {
 
-    try {
-      const response = await fetch(`${BASE_URL}/posts`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${TOKEN_STRING_HERE}`
-        },
-        body: JSON.stringify({
-          post: {
-            title: "My favorite stuffed animal",
-            description: "This is a pooh doll from 1973. It has been carefully taken care of since I first got it.",
-            price: "$480.00",
-            willDeliver: true
-          }
-        })
-      });
-      const result = await response.json();
-      console.log(result);
-      return result
-    } catch (err) {
-      console.error(err);
-    }
+
+  // API/index.js
+export const makePost = async (listingData, token, headers) => { // Include headers as a parameter
+  try {
+    const response = await fetch(`${BASE_URL}/posts`, {
+      method: "POST",
+      headers: headers, 
+      body: JSON.stringify({
+        post: listingData
+      })
+    });
+
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
   }
+};
+
+
+
+//   export const makePost = async (listingData, token) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/posts`, {
+//       method: "POST",
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${token}`, // Include the token in the headers
+//       },
+//       body: JSON.stringify({
+//         post: listingData
+//       })
+//     });
+
+//     const result = await response.json();
+//     console.log(result);
+//     return result;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
+
