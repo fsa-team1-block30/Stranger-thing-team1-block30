@@ -1,0 +1,119 @@
+/* index.css */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  /* Distribute content evenly */
+  align-items: center;
+  background: rgb(20, 19, 19);
+  padding: 10px;
+}
+
+.nav {
+  display: flex;
+  align-items: flex-start;
+}
+
+.nav-link {
+  margin: 0 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: rgba(241, 240, 240, 0.1);
+}
+
+.nav-title {
+  color: white;
+  font-size: 24px;
+  /* Adjust the font size as needed */
+}
+
+
+
+/*registration*/
+
+.registration-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  color: red;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.signup-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+/*log in */
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  color: red;
+}
+
+.input-container {
+  margin-bottom: 10px;
+}
+
+.login-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.register-link {
+  margin-top: 10px;
+}
