@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { loginUser, makeHeaders } from '../API/index';
 import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
-import NewListingForm from './NewListingForm';
+
+
+
 
 
 
@@ -27,6 +29,7 @@ function Login() {
 
   const handleLoginSuccess = (token) => {
     sessionStorage.setItem('token', token);
+    
     setIsLoggedIn(true);
     navigate('/Profile');
   };
@@ -53,24 +56,6 @@ function Login() {
   }
 };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const loginData = {
-  //     username,
-  //     password,
-  //   };
-
-  //   try {
-  //     const result = await loginUser(loginData, makeHeaders);
-  //     if (result.data) {
-  //       console.log('Received token:', result.token);
-  //       handleLoginSuccess(result.token);
-  //       window.alert("Login successful!");
-  //     }
-  //   } catch (err) {
-  //     setError("Invalid credentials. Please try again.");
-  //   }
-  // };
 
   
 
@@ -135,7 +120,7 @@ function Login() {
         <Register onSuccess={handleRegistrationSuccess} />
       )}
 
-      {isLoggedIn && <NewListingForm token={sessionStorage.getItem('token')} />}
+     
     </div>
   );
 }

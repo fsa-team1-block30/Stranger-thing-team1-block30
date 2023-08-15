@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { makePost, makeHeaders } from '../API/index';
+import { useNavigate } from 'react-router-dom';
 
 
 function NewListingForm() {
@@ -8,11 +9,13 @@ function NewListingForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [isSuccessful, setIsSuccessful] = useState(false);
+    const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-    const headers = makeHeaders(); // Call the makeHeaders function to get headers with token
+    const headers = makeHeaders(); 
 
     const listingData = {
       location,
@@ -22,7 +25,7 @@ function NewListingForm() {
       price,
     };
 
-    try {
+    try { 
 
         const token = sessionStorage.getItem('token');
         
@@ -30,14 +33,22 @@ function NewListingForm() {
         console.log("Headers New listing from:", headers);
       const newListing = await makePost(listingData,token, headers);
       console.log('New listing created:', newListing);
-      // You can update your state with the new listing here
+
+       if (newListing) {
+        setIsSuccessful(true);
+        navigate ('/posts');
+      }
+     
     } catch (error) {
       console.error('Error creating listing:', error);
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+
+    <div>
+    <form className="form-container" onSubmit={handleSubmit}>
       <div>
+        <h1 className="h1-add"> Add New Post</h1>
         <label htmlFor="location">Location:</label>
         <input
           type="text"
@@ -85,8 +96,10 @@ function NewListingForm() {
           required
         />
       </div>
-      <button type="submit">Create Listing</button>
+      <button type="submit">Create</button>
     </form>
+    
+</div>
   );
 }
 

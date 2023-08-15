@@ -43,7 +43,7 @@ function Register(onSuccess) {
 
     try {
       const result = await registerUser(registrationData);
-      // Handle success (you'll likely get a token in the result)
+      
        if (result.success){
         onSuccess();
         window.alert("Registration successful! You can now log in.");
@@ -91,7 +91,7 @@ function Register(onSuccess) {
         <button type="submit" className="signup-button" > <Link to="/Login">Sign Up </Link></button>
       </form>
 
-        {/* Add Link to the login page after the form */}
+       
       <p className="login-link">Already have an account? <Link to="/Login">Login</Link></p>
     </div>
   );

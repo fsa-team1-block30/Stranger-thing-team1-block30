@@ -101,24 +101,3 @@ export const makePost = async (listingData, token, headers) => { // Include head
 
 
 
-//   export const makePost = async (listingData, token) => {
-//   try {
-//     const response = await fetch(`${BASE_URL}/posts`, {
-//       method: "POST",
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${token}`, // Include the token in the headers
-//       },
-//       body: JSON.stringify({
-//         post: listingData
-//       })
-//     });
-
-//     const result = await response.json();
-//     console.log(result);
-//     return result;
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
