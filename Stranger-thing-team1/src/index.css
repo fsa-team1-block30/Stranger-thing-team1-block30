@@ -214,3 +214,39 @@ text-align: center
 .form-container button:hover {
   background-color: #2980b9;
 }
+
+
+/*home*/
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url('https://images.unsplash.com/photo-1561715276-a2d087060f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.welcome-message {
+  font-size: 40px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.profile-button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.emphasized {
+  font-weight: bold;
+  color: rgb(46, 30, 220);
+  /* Adjust the color as needed */
+}

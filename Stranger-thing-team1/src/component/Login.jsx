@@ -29,9 +29,11 @@ function Login() {
 
   const handleLoginSuccess = (token) => {
     sessionStorage.setItem('token', token);
+     sessionStorage.setItem('username', username);
+    
     
     setIsLoggedIn(true);
-    navigate('/Profile');
+    navigate('/Home');
   };
 
 
@@ -47,6 +49,7 @@ function Login() {
     if (result.success) {
       console.log('Received token:', result.data.token);
       handleLoginSuccess(result.data.token);
+      console.log('Stored token in sessionStorage:', sessionStorage.getItem('token'));
       window.alert("Login successful!");
     } else {
       setError("Invalid credentials. Please try again.");
@@ -67,6 +70,7 @@ function Login() {
 
   const handleLogout = () => {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('username');
     setIsLoggedIn(false);
   };
 
