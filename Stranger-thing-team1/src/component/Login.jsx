@@ -18,6 +18,7 @@ function Login() {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
   const navigate = useNavigate();
+  
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -27,10 +28,12 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  const handleLoginSuccess = (token) => {
+  const handleLoginSuccess = (token,) => {
     sessionStorage.setItem('token', token);
      sessionStorage.setItem('username', username);
-    
+     
+
+     
     
     setIsLoggedIn(true);
     navigate('/Home');

@@ -1,6 +1,8 @@
+
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllPosts } from '../API/index';
+import { getAllPosts, getAllPostsAuthenticated, deletePost} from '../API/index';
 
 
 function Posts() {
@@ -9,10 +11,20 @@ function Posts() {
   const [error, setError] = useState(null);
   const token = sessionStorage.getItem('token');
 
+
   useEffect(() => {
     async function fetchInitialPosts() {
       try {
-        const fetchedPosts = await getAllPosts();
+        let fetchedPosts;
+
+        if (token) {
+        
+          fetchedPosts = await getAllPostsAuthenticated(token);
+        } else {
+         
+          fetchedPosts = await getAllPosts();
+        }
+        console.log('Fetched posts:', fetchedPosts);
         setPosts(fetchedPosts);
         setIsLoading(false);
       } catch (error) {
@@ -23,7 +35,7 @@ function Posts() {
     }
 
     fetchInitialPosts();
-  }, []);
+  }, [token]); 
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -32,6 +44,21 @@ function Posts() {
   if (error) {
     return <p>Error fetching posts</p>;
   }
+
+
+const handleDelete = async (postId) => {
+    try {
+      const result = await deletePost(postId, token);
+      if (result.success) {
+        setPosts(posts.filter(post => post._id !== postId));
+        console.log(result.message); 
+      } else {
+        console.error("Error deleting post:", result.message);
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
 
   return (
     <div className="posts-container">
@@ -43,29 +70,29 @@ function Posts() {
           </Link>
         )}
       </div>
-      <h2>Initial Posts</h2>
       <ul>
         {posts.map(post => (
-          <li key={post._id}>
-            <p>{post.username}</p>
-            <p>Title: {post.title}</p>
-            <p>Description: {post.description}</p>
-            <p>Price: {post.price}</p>
-            <p>Location: {post.location}</p>
-            <p>Delivery: {post.willDeliver}</p>
+          
+          <li key={post._id} className="post-item">
+      <p className="post-username">{post.username}</p>
+      <h3 className="post-title">{post.title}</h3>
+      <p className="post-description">{post.description}</p>
+      <p className="post-price">Price: {post.price}</p>
+      <p className="post-location">Location: {post.location}</p>
+      <p className="post-delivery">Delivery: {post.willDeliver}</p>
+
+      
             {post.isAuthor || token ? (
               <div>
                 {post.isAuthor && <p>You are the author of this post.</p>}
-                {post.messages && post.messages.length > 0 && (
-                  <div>
-                    <h3>Messages:</h3>
-                    <ul>
-                      {post.messages.map((message, index) => (
-                        <li key={index}>{message}</li>
-                      ))}
-                    </ul>
-                  </div>
+                {token && !post.isAuthor && (
+                  <Link to={`/message/${post._id}`} className="button-link">Message</Link>
                 )}
+                 {post.isAuthor && (
+                  <button onClick={() => handleDelete(post._id)} className="delete" >Delete</button>
+                )}
+                
+                
               </div>
             ) : null}
           </li>

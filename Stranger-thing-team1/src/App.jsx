@@ -6,6 +6,7 @@ import NavBar from "./component/NavBar"
 import Profile from "./component/Profile"
 import Register from "./component/Register"
 import NewListingForm from "./component/NewListingForm"
+import Message from "./component/Message"
 
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
  <Route path="/Register" element={<Register />} />
  <Route path="/NewListing" element={<NewListingForm/>}/>
  <Route path="/Home" element={<Home/>}/>
+ <Route path="//message/:postId" element={<Message/>}/>
 
 </Routes>
       </div>

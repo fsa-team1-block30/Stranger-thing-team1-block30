@@ -23,9 +23,31 @@ export const getAllPosts = async () => {
   try {
     const response = await fetch(`${BASE_URL}/posts`);
     const data = await response.json();
-    console.log("get post:", data)
+    console.log("get post.data:", data.data.posts)
     
     return data.data.posts; 
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw error;
+  }
+};
+
+export const getAllPostsAuthenticated = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/posts`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch posts: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("get post.data:", data.data.posts);
+
+    return data.data.posts;
   } catch (error) {
     console.error("Error fetching posts:", error);
     throw error;
@@ -80,7 +102,7 @@ export const loginUser = async (loginData) => {
 
 
 
-  // API/index.js
+  
 export const makePost = async (listingData, token, headers) => { // Include headers as a parameter
   try {
     const response = await fetch(`${BASE_URL}/posts`, {
@@ -101,3 +123,55 @@ export const makePost = async (listingData, token, headers) => { // Include head
 
 
 
+export const deletePost = async (postId, token) => {
+  try {
+    
+    const response = await fetch(`${BASE_URL}/posts/${postId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to delete post');
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    throw error;
+  }
+};
+
+
+export const sendMessage = async (postId, message, token) => {
+  try {
+    const apiUrl = `${BASE_URL}/posts/${postId}/messages`;
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to send message');
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error sending message:", error);
+    throw error;
+  }
+};

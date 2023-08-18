@@ -248,5 +248,97 @@ text-align: center
 .emphasized {
   font-weight: bold;
   color: rgb(46, 30, 220);
-  /* Adjust the color as needed */
+ 
+}
+
+
+/*posts*/
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-link:hover {
+  background-color: #0056b3;
+}
+
+.delete {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff2a00;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete:hover {
+  background-color: #ed6009;
+}
+
+
+.posts-container {
+  max-width: 1550px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-post-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.h1-post {
+  font-size: 55px;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+
+.post-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.post-username {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-title {
+  font-size: 18px;
+  margin: 0 0 5px;
+}
+
+.post-description {
+  margin-bottom: 5px;
+}
+
+.post-price,
+.post-location,
+.post-delivery {
+  margin-bottom: 5px;
 }
