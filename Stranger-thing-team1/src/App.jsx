@@ -25,7 +25,7 @@ export default function App() {
  <Route path="/Register" element={<Register />} />
  <Route path="/NewListing" element={<NewListingForm/>}/>
  <Route path="/Home" element={<Home/>}/>
- <Route path="//message/:postId" element={<Message/>}/>
+ <Route path="/post/:postId" element={<Message/>}/>
 
 </Routes>
       </div>

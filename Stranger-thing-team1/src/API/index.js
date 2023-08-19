@@ -103,7 +103,7 @@ export const loginUser = async (loginData) => {
 
 
   
-export const makePost = async (listingData, token, headers) => { // Include headers as a parameter
+export const makePost = async (listingData, token, headers) => { 
   try {
     const response = await fetch(`${BASE_URL}/posts`, {
       method: "POST",
@@ -150,7 +150,7 @@ export const deletePost = async (postId, token) => {
 
 export const sendMessage = async (postId, message, token) => {
   try {
-    const apiUrl = `${BASE_URL}/posts/${postId}/messages`;
+    const apiUrl = `${BASE_URL}/posts/${postId}`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -159,7 +159,9 @@ export const sendMessage = async (postId, message, token) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        message,
+       message: {
+            content: ""
+          }
       }),
     });
 
@@ -172,6 +174,27 @@ export const sendMessage = async (postId, message, token) => {
     return responseData;
   } catch (error) {
     console.error("Error sending message:", error);
+    throw error;
+  }
+};
+
+
+export const getUserProfile = async (token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch user profile: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
     throw error;
   }
 };
