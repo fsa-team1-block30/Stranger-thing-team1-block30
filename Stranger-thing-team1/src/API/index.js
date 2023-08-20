@@ -150,7 +150,10 @@ export const deletePost = async (postId, token) => {
 
 export const sendMessage = async (postId, message, token) => {
   try {
-    const apiUrl = `${BASE_URL}/posts/${postId}`;
+    console.log("Sending message to postId:", postId);
+    console.log("Message content:", message);
+    console.log("Authorization token:", token);
+    const apiUrl = `${BASE_URL}/posts/${postId}/messages`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -160,7 +163,7 @@ export const sendMessage = async (postId, message, token) => {
       },
       body: JSON.stringify({
        message: {
-            content: ""
+            content: message
           }
       }),
     });

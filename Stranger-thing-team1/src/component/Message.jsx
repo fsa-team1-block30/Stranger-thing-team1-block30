@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { sendMessage } from '../API/index';
 import { useParams } from 'react-router-dom';
 import { getAllPostsAuthenticated } from '../API/index';
@@ -15,12 +15,13 @@ function Message() {
   useEffect(() => {
     async function fetchInitialPosts() {
       try {
-        let fetchedPosts;
+        let fetchedPosts = [];
 
         if (token) {
           fetchedPosts = await getAllPostsAuthenticated(token);
+          console.log('Fetched posts:', fetchedPosts);
         }
-        console.log('Fetched posts:', fetchedPosts);
+
         setPosts(fetchedPosts);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -28,11 +29,10 @@ function Message() {
     }
 
     fetchInitialPosts();
-    
   }, [token]);
 
-  const handleSendMessage = async () => { // No need for postId here
-   
+  const handleSendMessage = async (e) => { // No need for postId here
+   e.preventDefault();
     try {
       const result = await sendMessage(postId, message, token);
       console.log("API response:", result);

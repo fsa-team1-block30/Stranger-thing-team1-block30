@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { getUserProfile } from '../API/index';
+import { useState, useEffect } from 'react';
+import { getUserProfile, } from '../API/index';
+import { Link } from 'react-router-dom';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -46,11 +47,13 @@ function Profile() {
           <h2>Welcome, {user.username || 'User'}!</h2>
           {user.messages && user.messages.length > 0 ? (
             <div>
-              <h3>Your Messages</h3>
+              <h3>Messages from Me:</h3>
               <ul>
                 {user.messages.map((message) => (
                   <li key={message._id}>
-                    {message.content}
+                    <p>Message: {message.content}</p>
+                    <p>Post Title: {message.post.title}</p>
+                     <Link to={`/post/:postId/message`}>Message again</Link>
                   </li>
                 ))}
               </ul>
@@ -65,7 +68,10 @@ function Profile() {
               <ul>
                 {user.posts.map((post) => (
                   <li key={post._id}>
-                    {post.title}
+                   <p>{post.title}</p> 
+                    <p>{post.description}</p>{post.description}
+                   <p><Link to={`/post/${post._id}/message`}>View Details</Link></p> 
+
                   </li>
                 ))}
               </ul>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllPosts, getAllPostsAuthenticated, deletePost } from '../API/index';
 
@@ -94,7 +94,7 @@ function Posts() {
               <div>
                 {post.isAuthor && <p>You are the author of this post.</p>}
                 {token && !post.isAuthor && (
-                  <Link to={`/post/${post._id}`} className="button-link">
+                  <Link to={`/post/${post._id}/message`} className="button-link">
                     Message
                   </Link>
                 )}
