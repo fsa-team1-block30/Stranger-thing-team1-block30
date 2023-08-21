@@ -29,10 +29,9 @@ function NewListingForm() {
 
         const token = sessionStorage.getItem('token');
         
-        console.log("Token New listing from:", token); 
-        console.log("Headers New listing from:", headers);
+        
       const newListing = await makePost(listingData,token, headers);
-      console.log('New listing created:', newListing);
+      
 
        if (newListing) {
         setIsSuccessful(true);

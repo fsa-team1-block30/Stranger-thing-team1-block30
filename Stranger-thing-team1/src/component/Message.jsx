@@ -6,7 +6,7 @@ import { getAllPostsAuthenticated } from '../API/index';
 function Message() {
   const [message, setMessage] = useState("");
   const [messageSuccess, setMessageSuccess] = useState("");
-  const [success, setSuccess] = useState(false); // New state for success flag
+  const [success, setSuccess] = useState(false); 
   const { postId } = useParams();
   const [posts, setPosts] = useState([]);
   const token = sessionStorage.getItem('token');
@@ -31,7 +31,7 @@ function Message() {
     fetchInitialPosts();
   }, [token]);
 
-  const handleSendMessage = async (e) => { // No need for postId here
+  const handleSendMessage = async (e) => { 
    e.preventDefault();
     try {
       const result = await sendMessage(postId, message, token);

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { loginUser, makeHeaders } from '../API/index';
+import { loginUser,  } from '../API/index';
 import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 
-// This function creates headers for API requests with or without the bearer token
+
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -34,7 +34,7 @@ function Login() {
      
 
      
-    
+  
     setIsLoggedIn(true);
     navigate('/Home');
   };
@@ -66,8 +66,7 @@ function Login() {
   
 
   const handleRegistrationSuccess = () => {
-    setRegistrationSuccess(true); // Set registration success state
-    setShowRegistrationForm(false); // Hide registration form after successful registration
+    setRegistrationSuccess(true); 
     
   };
 
@@ -95,7 +94,7 @@ function Login() {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              <div className="input-container">
+              <div className="input-box">
                 <label htmlFor="login-username">Username:</label>
                 <input
                   type="text"
@@ -105,7 +104,7 @@ function Login() {
                   required
                 />
               </div>
-              <div className="input-container">
+              <div className="input-box">
                 <label htmlFor="login-password">Password:</label>
                 <input
                   type="password"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -14,11 +14,18 @@ function Home() {
 
   return (
     <div className="home-container">
-      {username && (
-        <React.Fragment>
-          <p className="welcome-message">Welcome to Stranger's Things, <span className="emphasized">{username}</span>!</p>
+      {username ? (
+        <>
+          <p className="welcome">Welcome to Stranger's Things, <span className="emphasized">{username}</span>!</p>
           <button className="profile-button" onClick={() => navigate('/profile')}>Go to Profile</button>
-        </React.Fragment>
+        </>
+      ) : (
+        <>
+          <p className="signup-message">
+            Welcome to Stranger's Things! Log in to access your profile.
+          </p>
+          <button className="log-button" onClick={() => navigate('/Login')}>Login</button>
+        </>
       )}
     </div>
   );
