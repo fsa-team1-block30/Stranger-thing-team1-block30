@@ -4,12 +4,6 @@ import Register from './Register';
 import { Link, useNavigate } from 'react-router-dom';
 
 
-
-
-
-
-
-
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

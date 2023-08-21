@@ -2,14 +2,13 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function NavBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem("token")); // Initialize with the token from sessionStorage
-
+  const [isLoggedIn, setIsLoggedIn] = useState(""); 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
     console.log("Token from session storage:", storedToken);
 
     setIsLoggedIn(!!storedToken);
-  }, []); // Empty dependency array to run the effect only once
+  }, []); 
 
   // Function to handle logout
   const handleLogout = () => {
@@ -48,30 +47,4 @@ export default function NavBar() {
     </div>
   );
 }
-
-
-// import { Link } from "react-router-dom";
-
-
-// export default function NavBar() {
-//   return (
-//     <div className="nav-container">
-//       <h1 className="nav-title">Stranger Things</h1>
-//       <nav className="nav">
-//         <Link to="/" className="nav-link">
-//           HOME
-//         </Link>
-//         <Link to="/Posts" className="nav-link">
-//           POST
-//         </Link>
-//         <Link to="/Login" className="nav-link">
-//           LOGIN
-//         </Link>
-//         <Link to="/Profile" className="nav-link">
-//           PROFILE
-//         </Link>
-//       </nav>
-//     </div>
-//   );
-// }
 

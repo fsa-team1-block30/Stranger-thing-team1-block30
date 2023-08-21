@@ -94,7 +94,7 @@ function Profile() {
                   <li key={post._id} className='user-post-item'>
                     <p className='post-title'>{post.title}</p>
                     <p className='post-description'>{post.description}</p>
-                    <Link to={`/post/${post._id}/message`} className='message-link'>see details</Link>
+                    
                   </li>
                 ))}
               </ul>
