@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+.success-message {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
