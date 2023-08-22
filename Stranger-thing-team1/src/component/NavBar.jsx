@@ -1,21 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function NavBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(""); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); // Access the history object
+
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
     console.log("Token from session storage:", storedToken);
 
     setIsLoggedIn(!!storedToken);
-  }, []); 
+  }, []);
 
-  // Function to handle logout
   const handleLogout = () => {
-    // Remove the token and username from session storage and update the state
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("username");
     setIsLoggedIn(false);
+    navigate('/Home') // Programmatically navigate to the home page
+    window.location.reload();
   };
 
   return (
@@ -28,13 +30,12 @@ export default function NavBar() {
         <Link to="/Posts" className="nav-link">
           POST
         </Link>
-         {/* Conditionally render LOGIN or PROFILE link based on isLoggedIn */}
         {isLoggedIn ? (
           <>
             <Link to="/Profile" className="nav-link">
               PROFILE
             </Link>
-            <button onClick={handleLogout} className="nav-link">
+            <button onClick={handleLogout} className="nav-button">
               LOGOUT
             </button>
           </>
@@ -47,4 +48,6 @@ export default function NavBar() {
     </div>
   );
 }
+
+
 

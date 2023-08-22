@@ -31,6 +31,7 @@ function Login() {
   
     setIsLoggedIn(true);
     navigate('/Home');
+    window.location.reload();
   };
 
 
